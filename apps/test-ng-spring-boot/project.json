@@ -1,0 +1,95 @@
+{
+  "name": "test-ng-spring-boot",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "lu",
+  "sourceRoot": "apps/test-ng-spring-boot/src",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/test-ng-spring-boot",
+        "index": "apps/test-ng-spring-boot/src/index.html",
+        "main": "apps/test-ng-spring-boot/src/main.ts",
+        "polyfills": ["zone.js"],
+        "tsConfig": "apps/test-ng-spring-boot/tsconfig.app.json",
+        "assets": [
+          "apps/test-ng-spring-boot/src/favicon.ico",
+          "apps/test-ng-spring-boot/src/assets"
+        ],
+        "styles": ["apps/test-ng-spring-boot/src/styles.css"],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "browserTarget": "test-ng-spring-boot:build:production"
+        },
+        "development": {
+          "browserTarget": "test-ng-spring-boot:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "test-ng-spring-boot:build"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "apps/test-ng-spring-boot/**/*.ts",
+          "apps/test-ng-spring-boot/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/test-ng-spring-boot/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    }
+  }
+}
